@@ -1,0 +1,107 @@
+@startuml sapceinvader
+class Resistencia
+class Escudo{
++Cubrir(Daño):Colision
+-Colision colisiones []
+-Resistencia resitencia
+}
+class Disparo
+class Bala{
++Disparar(Proyectil):Colision
++Mover(Arriba):
+-Colision Colisiones []
+}
+class Colision
+class Nave{
++Mover(FlechaIzquierda):MoverIzquierda
++Mover(FlechaDerecha):MoverDerecha
++Mover(FlechaSuperior):MoverArriba
++Mover(FlechaInferior):MoverAbajo
+- Vida vidas [3]
+}
+class Vida
+class Jugador{
+-Marcador marcadores
+}
+class Marcador{
+-Marcador marcadores
+}
+class Puntuacion
+class Juego{
+-Nivel niveles [10]
+-Pantalla pantalla
+-Jugador jugador
+-Enemigo enemigos []
+-Tiempo tiempo
+-Sonido Sonidos[]
+}
+class Pantalla
+class Nivel
+class Tiempo
+class CuentaRegresiva
+class Sonido
+class Enemigo{
+-PUntuacion puntuacion[]
+}
+class Ovni
+class Bonus
+class Movimiento{
++MoverX()
++MoverY()
+}
+class Calamar
+class Cangrejo
+class Pulpo
+class Rayo{
++Disparar(Proyectil):Colision
++Mover(Abajo):
+-Colision colisiones[]
+}
+class PuntuacionAlta{
++Guardar(Puntuacion):Marcador
++Comparar(PuntuacionAnterior):PuntuacionAlta
+}
+
+Juego "1" *-- "1" Jugador
+Juego "1" *-- "1" Pantalla
+Juego "1" *-- "10" Nivel
+Juego *-- Sonido
+Juego *-- Tiempo
+Jugador "1" o-- "1" Nave
+Jugador *-- Marcador
+
+Nivel "1" *-- "*" Enemigo
+
+
+Marcador *-- Puntuacion
+
+Nave "1" o-- "*" Bala
+Nave "1" *-- "3" Vida
+
+Bala *-- Colision
+Bala --|> Disparo
+
+Disparo "1" o-- "4" Escudo
+
+Escudo *-- Resistencia
+Escudo *-- Colision
+
+
+
+Tiempo *-- CuentaRegresiva
+
+Enemigo *-- Puntuacion
+Enemigo o-- Movimiento
+Ovni --|> Enemigo
+Ovni *-- Bonus
+Calamar --|> Enemigo
+Calamar o-- Rayo
+Cangrejo o-- Rayo
+Cangrejo --|> Enemigo
+Pulpo --|> Enemigo
+Pulpo o-- Rayo
+
+Rayo *-- Colision
+
+PuntuacionAlta o-- Puntuacion
+@enduml
